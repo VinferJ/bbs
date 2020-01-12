@@ -1,0 +1,309 @@
+body{
+    background: #e9ecef;
+    /*解决100%宽度但是不能铺满屏幕的问题*/
+    margin: 0;
+}
+a{
+    cursor: pointer;
+}
+.header-content{
+    display: flex;
+    min-width: 70%;
+    width: 70%;
+    height: 100%;
+    margin-left: 15%;
+    /*padding-left: 15%;*/
+}
+
+.label-website-name{
+    display: flex;
+    width: 28%;
+    height: 100%;
+    line-height: 67px;
+    font-size: 25px;
+    font-weight: bolder;
+}
+.signIn-btn{
+    display: flex;
+    width: 200px;
+    height: 100%;
+    line-height: 67px;
+    /*margin-left: 80px;*/
+}
+.signIn-content{
+    display: flex;
+    width: 490px;
+    margin-left: 4px;
+    height: 100%;
+}
+.register-content{
+    display: none;
+    width: 490px;
+    margin-left: 4px;
+    height: 100%;
+}
+.resetPwd-content{
+    display: none;
+    width: 490px;
+    margin-left: 4px;
+    height: 100%;
+}
+.opts{
+    display: flex;
+    height: 100%;
+    width: 40%;
+}
+.welcome-tip{
+    display: flex;
+    height: 100%;
+    line-height: 67px;
+    width: 200px;
+    /*margin-left: 100px;*/
+    font-size: 14px;
+}
+.avatar-img{
+    width:47px;
+    height: 47px;
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    cursor: pointer;
+    padding-top: -8px;
+
+}
+.link-home{
+    width: 56px;
+    height: 34px;
+    margin-top: 16.5px;
+    margin-left: 10px;
+    font-size: 16px;
+    text-align: center;
+}
+.link-create{
+    width: 75px;
+    height: 34px;
+    margin-top: 16.5px;
+    margin-left: 10px;
+    font-size: 16px;
+    text-align: center;
+}
+.link-home:hover{
+    background: #EEEEEE;
+}
+.link-create:hover{
+    background: #EEEEEE;
+}
+.link:hover{
+    background: #EEEEEE;
+}
+.link{
+    width: 116px;
+    height: 34px;
+    margin-top: 16.5px;
+    margin-left: 10px;
+    font-size: 16px;
+    text-align: center;
+}
+.signIn-area{
+    display: flex;
+    width: 28%;
+    height: 100%;
+    margin-left: 4%;
+}
+.main-container{
+    width: 70%;
+    margin-left: 15%;
+    height: auto;
+    max-height: 4000px;
+    overflow: scroll;
+    overflow-x:hidden;
+    background: white;
+    border-radius: 8px;
+    border-bottom-left-radius: 0;
+    margin-top: 60px;
+}
+.comment-container{
+    display: flex;
+    width: 70%;
+    margin-left: 15%;
+    margin-bottom: 7%;
+    height: auto;
+    background: white;
+    border-radius: 8px;
+}
+.user-info{
+    display: flex;
+    margin-left: 3%;
+    width: 400px;
+    height: 40px;
+}
+.avatar-img{
+    display: flex;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    background: #e9ecef;
+}
+.user-name{
+    display: flex;
+    width: 200px;
+    margin-left: 5px;
+    height: 100%;
+    line-height: 40px;
+    color: #00965e;
+    font-weight: bolder;
+    font-size: 16px;
+}
+.title-info{
+    width: 100%;
+    height: 50px;
+    margin-top: 10px;
+    margin-left: 3%;
+    margin-bottom: 10px;
+    line-height: 50px;
+    color: #212529;
+    font-weight: 600;
+    font-size: 32px;
+}
+.post-content{
+    width: 94%;
+    margin-left: 3%;
+    height: auto;
+    max-height: 3800px;
+}
+.date-info{
+    width: 300px;
+    height: 30px;
+    margin-left: 4%;
+    margin-bottom: 20px;
+    color: #6c757d;
+    font-size: 15px;
+    line-height: 30px;
+}
+.footer-content{
+    background: #333333;
+    height: 150px;
+    width:100%;
+    margin-top: 100px;
+    display: block;
+    position: absolute;
+    bottom: 0;
+    text-align: center;
+    border: 5px solid #999999;
+    border-bottom: transparent;
+    border-left: transparent;
+    border-right: transparent;
+}
+.opts-content{
+    display: flex;
+    width: 50%;
+    height: 60px;
+    margin-left: 25%;
+    margin-bottom: 100px;
+}
+.comment-num{
+    width: 100px;
+    height: 50px;
+    display: flex;
+    margin-top: 100px;
+    margin-left: 15%;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 50px;
+    text-align: left;
+}
+.comment-card-body{
+    display: block;
+    width: 96%;
+    height: auto;
+    margin-left: 2%;
+    margin-top: 20px;
+}
+.comment-edit{
+    width: 100%;
+    height: auto;
+    max-height: 500px;
+}
+.avatar{
+    display: inline-flex;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+}
+.comment-edit-input{
+    display: inline-flex;
+    width: 91%;
+    height: 38px;
+    margin-left: 10px;
+}
+.commit-btn{
+    width: 17%;
+    height: 50px;
+    display: block;
+    margin-left: 86%;
+}
+.comment-content{
+    display: flex;
+    width: 100%;
+    height: 100px;
+    margin-top: 20px;
+}
+.comment-text-container{
+    display: inline-flex;
+    width: 91%;
+    height: 70%;
+    margin-left: 5px;
+}
+.commentator-name{
+    display: inline-flex;
+    height: 50px;
+    margin-top: -15px;
+    margin-left: 10px;
+    max-width: 20%;
+}
+.content-text{
+    width: 80%;
+    height: 100%;
+    word-break: break-word;
+}
+.reply-date{
+    display: block;
+    width: 300px;
+    height: 30px;
+    margin-left: 55px;
+    color: #999999;
+    font-size: 14px;
+    line-height: 30px;
+}
+#thumb{
+    background: white;color: #009a61;border: 1px solid #009a61
+}
+#thumb:hover{
+    /*
+    样式后面加!important 后可以让样式被jquery修改后仍然生效
+    */
+    color: #FFFFFF;
+    background: #009a61;
+}
+#mark{
+    color: #6c757d;
+    background: white;
+    border: 1px solid #6c757d;
+}
+#mark:hover{
+    color: white;
+    background: #6c757d;
+}
+#top:hover{
+    color: white;!important;
+    background: #6c757d;
+}
+#top{
+    color: #6c757d;
+    background: white;
+    border: 1px solid #6c757d;
+}

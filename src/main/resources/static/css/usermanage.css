@@ -1,0 +1,86 @@
+.header-content{
+    display: flex;
+    min-width: 70%;
+    width: 70%;
+    height: 100%;
+    margin-left: 15%;
+    /*padding-left: 15%;*/
+}
+.label-website-name{
+    display: flex;
+    width: 28%;
+    height: 100%;
+    line-height: 67px;
+    font-size: 25px;
+    font-weight: bolder;
+}
+.opts{
+    display: flex;
+    height: 100%;
+    width: 40%;
+}
+.welcome-tip{
+    display: flex;
+    height: 100%;
+    line-height: 67px;
+    width: 200px;
+    /*margin-left: 100px;*/
+    font-size: 14px;
+}
+.avatar-img{
+    width:47px;
+    height: 47px;
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    background: #999999;
+    cursor: pointer;
+    padding-top: -8px;
+
+}
+.link-home{
+    width: 56px;
+    height: 34px;
+    margin-top: 16.5px;
+    margin-left: 10px;
+    font-size: 16px;
+    text-align: center;
+}
+.link-create{
+    width: 75px;
+    height: 34px;
+    margin-top: 16.5px;
+    margin-left: 10px;
+    font-size: 16px;
+    text-align: center;
+}
+.link-home:hover{
+    background: #EEEEEE;
+}
+.link-create:hover{
+    background: #EEEEEE;
+}
+.link:hover{
+    background: #EEEEEE;
+}
+.link{
+    width: 116px;
+    height: 34px;
+    margin-top: 16.5px;
+    margin-left: 10px;
+    font-size: 16px;
+    text-align: center;
+}
+.signIn-area{
+    display: flex;
+    width: 28%;
+    height: 100%;
+    margin-left: 4%;
+}
+.main-container{
+    display: flex;
+    width: 80%;
+    height: 100%;
+    margin-left: 10%;
+    margin-top: 50px;
+}

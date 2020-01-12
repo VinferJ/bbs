@@ -1,0 +1,15 @@
+/**
+ * @license Copyright (c) 2003-2019, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see https://ckeditor.com/legal/ckeditor-oss-license
+ */
+
+CKEDITOR.editorConfig = function( config ) {
+	// Define changes to default configuration here. For example:
+	// config.language = 'fr';
+	// config.uiColor = '#AADC6E';
+    config.image_previewText=' ';
+    //设置处理上传图片的后端api
+    config.filebrowserImageUploadUrl = "imgUpload";
+    config.filebrowserUploadUrl = "imgUpload";
+
+};

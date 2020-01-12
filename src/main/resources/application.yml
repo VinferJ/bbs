@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    username: root
+    password: localmysql
+    url: jdbc:mysql://localhost:3306/bbs?serverTimezone=Hongkong&useUnicode=true&characterEncoding=utf-8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  thymeleaf:
+    cache: false
+  freemarker:
+    template-loader-path: classpath:/templates/
+
+mybatis:
+  config-location: classpath:mybatis/mybatis.cfg.xml

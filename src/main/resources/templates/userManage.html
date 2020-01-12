@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>用户管理</title>
+    <script th:src="@{../js/jquery.min.js}"></script>
+    <script th:src="@{../js/jquerysession.js}"></script>
+    <script type="text/javascript" th:src="@{../umd/popper.min.js}"></script>
+    <script th:src="@{../js/bootstrap.min.js}"></script>
+    <script th:src="@{../js/bootstrap.bundle.min.js}"></script>
+    <link rel="stylesheet" th:href="@{../css/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{../css/sweetalert.css}">
+    <script type="text/javascript" th:src="@{../js/sweetalert-dev.js}"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{../css/usermanage.css}">
+</head>
+<body>
+<div style="display: block;width: 100%;min-height: 1800px;max-height: 5000px;height: 1800px">
+    <header style="background: #009933;height: 3px"></header>
+    <header th:replace="components.html::main-header"></header>
+    <header style="background: #CCCCCC;height: 1px"></header>
+    <div class="main-container">
+        <table class="table table-hover" style="text-align: center">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">用户名</th>
+                <th scope="col">注册邮箱</th>
+                <th scope="col">注册时间</th>
+                <th scope="col">操作</th>
+            </tr>
+            </thead>
+            <tbody th:each="userManageDTO:${allUserManageDTO}">
+            <tr>
+                <th scope="row" th:text="${userManageDTO.getRowNum()}"></th>
+                <td th:text="${userManageDTO.getUserName()}"></td>
+                <td th:text="${userManageDTO.getLoginAcc()}"></td>
+                <td th:text="${userManageDTO.getRegisterDate()}"></td>
+                    <!--已经是管理员不需要再授权-->
+                <td th:if="${userManageDTO.getAccType()==1}">
+                    <button type="button" class="btn btn-warning" style="width: 120px" name="authorize" disabled>管理员授权</button>
+                </td>
+                <td th:if="${userManageDTO.getAccType()==0}">
+                    <button type="button" class="btn btn-warning" style="width: 120px" name="authorize">管理员授权</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <footer th:replace="components.html::copyright-footer"></footer>
+</div>
+</body>
+<script type="text/javascript" th:src="@{../js/usermanage.js}"></script>
+</html>
