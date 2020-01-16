@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>用户信息</title>
+    <script th:src="@{../js/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{../umd/popper.min.js}"></script>
+    <script th:src="@{../js/jquerysession.js}"></script>
+    <script th:src="@{../js/bootstrap.min.js}"></script>
+    <script th:src="@{../js/bootstrap.bundle.min.js}"></script>
+    <link rel="stylesheet" th:href="@{../css/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{../css/toastr.css}">
+    <script type="text/javascript" th:src="@{../js/toastr.min.js}"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{../css/sweetalert.css}">
+    <script type="text/javascript" th:src="@{../js/sweetalert-dev.js}"></script>
+    <!--导入自定义样式表-->
+    <link rel="stylesheet" type="text/css" th:href="@{../css/userpage.css}">
+</head>
+<body>
+<div style="display: block;width: 100%;min-height: 1800px;max-height: 5000px;height: 1800px">
+    <header style="background: #009933;height: 3px"></header>
+    <header th:replace="components.html::main-header"></header>
+    <header style="background: #CCCCCC;height: 1px"></header>
+    <div class="info">
+        <div class="info-container">
+            <div class="img-container-outer">
+                <div class="img-container">
+                    <img th:src="@{../images/user-256.png}"  class="avatar-pos">
+                </div>
+                <!--
+                用户只有登录时并且是查看自己信息时
+                才显示详细信息，未登录查看或被其他用户查看
+                都只显示用户名被点赞数已经注册时间
+                -->
+                <div class="point-info" th:text="'账户积分：'+${userInfoPageDTO.points}"
+                th:if="${session.userName!=null&&session.userName==userInfoPageDTO.userName}"></div>
+            </div>
+            <div class="content-container" style="margin-left: 20px">
+                <div class="username-content">
+                    <label id="info-userName" th:text="${userInfoPageDTO.userName}"></label>&nbsp;&nbsp;&nbsp;
+                    <div style="height: 100%;width: 280px;display: inline-block;margin-left: -40px" id="userName-block">
+                        <input type="text" class="form-control" style="width: 150px;height: 35px;display: inline-block;font-size: 14px" id="userName-input">
+                        <button type="button" class="btn btn-success" style="width: 50px;height: 35px;display: inline-block;font-size: 12px;margin-top: 3px"
+                                id="save-edit-userName">保存</button>
+                        <button type="button" class="btn btn-secondary" style="width: 50px;height: 35px;display: inline-block;font-size: 12px;margin-top: 3px"
+                                id="cancel-edit-userName">取消</button>
+                    </div>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <!--用户自己才有权利编辑自己的信息-->
+                    <a  href="#" class="text-decoration-none"  style="font-size: 12px;" id="edit-userName"
+                    th:if="${session.userName!=null&&session.userName==userInfoPageDTO.userName}">编辑</a>
+                </div>
+                <th:block th:if="${session.userName!=null&&session.userName==userInfoPageDTO.userName}">
+                    <div class="opts-content" th:if="${userInfoPageDTO.accType==1}">
+                        账户类型：管理员
+                    </div>
+                    <div class="opts-content" th:if="${userInfoPageDTO.accType==0}">
+                        账户类型：普通用户
+                    </div>
+                    <div class="opts-content" th:text="'邮箱 '+' '+' '+' '+${userInfoPageDTO.email}"></div>
+                    <div class="opts-content">
+                        工作性质&nbsp;&nbsp;&nbsp;
+                        <label id="info-jobInfo" th:text="${userInfoPageDTO.jobCategory}"></label>
+                        <div style="height: 100%;width: 280px;display: inline-block" id="jobInfo-block">
+                            <select class="form-control" style="width: 150px;height: 100%;display: inline-block;font-size: 13px" id="sel-job">
+                                <option>学生</option>
+                                <option>IT/互联网</option>
+                                <option>教育</option>
+                                <option>金融</option>
+                                <option>艺术/设计</option>
+                                <option>服务业</option>
+                                <option>交通运输</option>
+                                <option>其他</option>
+                            </select>
+                            <button type="button" class="btn btn-success" style="width: 50px;height: 100%;display: inline-block;font-size: 12px;margin-top: -6px"
+                                    id="save-edit-jobInfo">保存</button>
+                            <button type="button" class="btn btn-secondary" style="width: 50px;height: 100%;display: inline-block;font-size: 12px;margin-top: -6px"
+                                    id="cancel-edit-jobInfo">取消</button>
+                        </div>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a  href="#" class="text-decoration-none"  style="font-size: 12px" id="edit-jobInfo">编辑</a>
+                    </div>
+                    <div class="opts-content">
+                        联系电话&nbsp;&nbsp;&nbsp;
+                        <label id="info-phoneNum" th:text="${userInfoPageDTO.phoneNum}"></label>
+                        <div style="height: 100%;width: 280px;display: inline-block" id="phoneNum-block">
+                            <input type="text" class="form-control" style="width: 150px;height: 100%;display: inline-block" id="phoneNum">
+                            <button type="button" class="btn btn-success" style="width: 50px;height: 100%;display: inline-block;font-size: 12px;margin-top: -6px"
+                                    id="save-edit-phoneNum">保存</button>
+                            <button type="button" class="btn btn-secondary" style="width: 50px;height: 100%;display: inline-block;font-size: 12px;margin-top: -6px"
+                                    id="cancel-edit-phoneNum">取消</button>
+                        </div>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a  href="#" class="text-decoration-none"  style="font-size: 12px" id="edit-phoneNum">编辑</a>
+                    </div>
+                </th:block>
+            </div>
+            <div class="content-container" style="background: #EEEEEE">
+                <div style="background: #E3E3E3;height: 35px;width: 100%;border-radius: 5px" >
+                    <div class="round-dots-content" style="background: #FF5F57;margin-left: 10px;margin-top: 10px"></div>
+                    <div class="round-dots-content" style="background: #FFBD2E"></div>
+                    <div class="round-dots-content" style="background: #28CA42"></div>
+                </div>
+                <div class="public-content" th:text="'被点赞数 '+${userInfoPageDTO.beenThumbNum}"></div>
+                <div class="public-content-other" th:text="'注册于 '+${userInfoPageDTO.registerDate}"></div>
+            </div>
+        </div>
+    </div>
+    <div class="main-container">
+        <div class="left-side">
+            <div class="opts-content-left" style="margin-top: 30px">
+                <button type="button" value="myPosts" class="btn btn-light" id="myPost-btn" name="left-side-btn" style="width: 100%;margin-top: 10px;font-size: 14px;color:#575757;border: 0;text-align: left"
+                th:if="${session.userName!=null&&session.userName==userInfoPageDTO.userName}">
+                    <!--登录录了且两用户名相等说明看的是自己的信息-->
+                    我发布的
+                    <!--未登录时或两用户名不相等时说名看的是别人的信息-->
+                </button>
+                <button type="button" value="myPosts" class="btn btn-light" id="myPost-btn" name="left-side-btn" style="width: 100%;margin-top: 10px;font-size: 14px;color:#575757;border: 0;text-align: left"
+                        th:if="${session.userName==null || session.userName!=userInfoPageDTO.userName}">
+                    <!--未登录时或两用户名不相等时说名看的是别人的信息-->
+                    他发布的
+                </button>
+            </div>
+            <div class="opts-content-left">
+                <button type="button" value="myAnswerPosts" class="btn btn-light" name="left-side-btn" style="width: 100%;margin-top: 10px;font-size: 14px;color:#575757;border: 0;text-align: left"
+                th:if="${session.userName!=null&&session.userName==userInfoPageDTO.userName}">
+                    我回答的
+                </button>
+                <button type="button" value="myAnswerPosts" class="btn btn-light" name="left-side-btn" style="width: 100%;margin-top: 10px;font-size: 14px;color:#575757;border: 0;text-align: left"
+                        th:if="${session.userName==null || session.userName!=userInfoPageDTO.userName}">
+                    他回答的
+                </button>
+            </div>
+            <div class="opts-content-left">
+                <button type="button" value="myQuestionPosts" class="btn btn-light" name="left-side-btn" style="width: 100%;margin-top: 10px;font-size: 14px;color:#575757;border: 0;text-align: left"
+                        th:if="${session.userName!=null&&session.userName==userInfoPageDTO.userName}">
+                    我提问的
+                </button>
+                <button type="button" value="myQuestionPosts" class="btn btn-light" name="left-side-btn" style="width: 100%;margin-top: 10px;font-size: 14px;color:#575757;border: 0;text-align: left"
+                        th:if="${session.userName==null || session.userName!=userInfoPageDTO.userName}">
+                    他提问的
+                </button>
+            </div>
+            <div class="opts-content-left">
+                <button type="button" value="beenThumbedPosts" class="btn btn-light" name="left-side-btn" style="width: 100%;margin-top: 10px;font-size: 14px;color:#575757;border: 0;text-align: left"
+                        th:if="${session.userName!=null&&session.userName==userInfoPageDTO.userName}">
+                    我被赞的
+                </button>
+                <button type="button" value="beenThumbedPosts" class="btn btn-light" name="left-side-btn" style="width: 100%;margin-top: 10px;font-size: 14px;color:#575757;border: 0;text-align: left"
+                        th:if="${session.userName==null || session.userName!=userInfoPageDTO.userName}">
+                    他被赞的
+                </button>
+            </div>
+        </div>
+        <div class="right-side">
+            <div class="menu-title" id="menu-title"></div>
+            <div  id="posts-info-container">
+                <div class='lists-group' th:if="${myPosts!=null}" th:each="myPost:${myPosts}">
+                    <div class='top-line' style='width: 100%;height: 1.5px;background: #999999;'></div>
+                    <input value='${myPost.postsId}' hidden>
+                    <div class='content-lists'>
+                        <div style='background: #FCF8E3' class='thumb-num' th:text="'获赞 '+${myPost.thumbNum}"></div>
+                        <div class='posts-info' th:text="${myPost.title}"></div>
+                    </div>
+                </div>
+                <div style='width: 80%;height: 100px;line-height: 100px;font-size: 15px;font-weight: bolder;text-align: center' th:if="${myPosts==null}">
+                    <div th:if="${session.userName!=null&&session.userName==userInfoPageDTO.userName}">
+                    您当前还没有发布过任何帖子哦~
+                    </div>
+                    <div th:if="${session.userName==null || session.userName!=userInfoPageDTO.userName}">
+                        他当前还没发布过任何帖子~
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer th:replace="components.html::copyright-footer"></footer>
+</body>
+<script type="text/javascript" th:src="@{../js/userpage.js}"></script>
+</html>

@@ -1,7 +1,9 @@
 package me.vinfer.bbs.service;
 
+import javafx.geometry.Pos;
 import me.vinfer.bbs.entity.PostsDO;
 import me.vinfer.bbs.entity.ReplyInfoDO;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -17,6 +19,14 @@ public interface PostsService {
      * @return 返回所有帖子信息
      */
     List<PostsDO> getAllPosts();
+
+    /**
+     * 通过帖子id获取帖子
+     * @param postsId   帖子id
+     * @return  返回帖子信息
+     */
+    @Select("select * from posts where posts_id=#{postsId}")
+    PostsDO getPostsById(Integer postsId);
 
     /**
      * 根据帖子标签获取帖子信息
@@ -42,13 +52,6 @@ public interface PostsService {
      * @return  返回问答帖信息
      */
     List<PostsDO> getAllQuestionPosts();
-
-    /**
-     * 删除一条帖子
-     * @param postId 删除的帖子ID
-     * @return 返回删除结果
-     */
-    Integer deletePost(int postId);
 
     /**
      * 用户发布新帖
@@ -84,10 +87,31 @@ public interface PostsService {
     Boolean commitComment(Integer postsId,String replyContent,String replyUser);
 
     /**
+     * 获取用户已发布的所有帖子
+     * @param userName  用户名
+     * @return  返回用户已发布的帖子的内容
+     */
+    List<PostsDO> getUserAllPosts(String userName);
+
+    /**
      * 获取用户被点赞的帖子
      * @param userName  用户名
      * @return  返回用户被点赞的帖子
      */
     List<PostsDO> getUserThumbPosts(String userName);
+
+    /**
+     * 获取用户发布过的问答帖
+     * @param userName  用户名
+     * @return  返回用户发布过的问答帖的信息
+     */
+    List<PostsDO> getUserQuestionPosts(String userName);
+
+    /**
+     * 获取用户回答过的帖子
+     * @param userName      用户名
+     * @return  返回用户回答过的帖子的集合
+     */
+    List<PostsDO> getUserAnswerPosts(String userName);
 
 }

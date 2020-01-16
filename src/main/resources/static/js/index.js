@@ -638,14 +638,13 @@ $("#my-post").click(function () {
     $("#page-select").prop("hidden",true);
     var data=[];
     $.ajax({
-        method:"post",
+        method:"get",
         url:"bbs/posts/allQuestionPosts",
-        data:{},
         dataType:"json",
         success:function (callback) {
             data=callback.callbackData;
             if (data.length===0){
-                cardBody.append("<div style='text-align: center;width: 100%;margin-top: 50px'>您目前还没发过任何问答帖子，快去发一条吧~</div>");
+                cardBody.append("<div style='text-align: center;width: 100%;margin-top: 50px'>目前还没任何用户发过问答帖子，快去发一条吧~</div>");
             }else{
                 /*渲染内容*/
                 cardBody.empty();
@@ -687,9 +686,8 @@ $("#boutique-notes").click(function () {
     $("#page-select").prop("hidden",true);
     let data = [];
     $.ajax({
-        method:"post",
+        method:"get",
         url:"bbs/posts/boutiquePosts",
-        data:{},
         dataType:"json",
         success:function (callback) {
             data=callback.callbackData;

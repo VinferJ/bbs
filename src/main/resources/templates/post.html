@@ -63,7 +63,7 @@
     <header style="background: #009933;height: 3px"></header>
     <header style="background: #fafafa;height: 67px;display: flex">
         <div class="label-website-name" >
-            <label style="margin-left: 25px;cursor: pointer" id="returnHome">NCU校园技术论坛</label>
+            <label style="margin-left: 25px;cursor: pointer" id="returnHome">HQU校园技术论坛</label>
         </div>
         <div class="label-website-name" style="margin-left: 5%;color: #6c757d;width: 15%">
             写文章
@@ -131,6 +131,11 @@
         width:'100%',
     });
 
+    /*返回首页*/
+    $("#returnHome").click(function () {
+        window.location.href="/";
+    });
+
     /*
     * 发布帖子
     * */
@@ -192,6 +197,9 @@
                             success:function (callback) {
                                 if (callback.successFlag){
                                     swal("发布成功","","success");
+                                    /*清空帖子标贴及内容*/
+                                    $("#title").val("");
+                                    $("#editor").val("");
                                 }else{
                                     swal("发布失败","T-T好像出bug了呢","error");
                                 }

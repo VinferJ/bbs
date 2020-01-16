@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>详细内容</title>
+    <script th:src="@{../js/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{../umd/popper.min.js}"></script>
+    <script th:src="@{../js/jquerysession.js}"></script>
+    <script th:src="@{../js/bootstrap.min.js}"></script>
+    <script th:src="@{../js/bootstrap.bundle.min.js}"></script>
+    <link rel="stylesheet" th:href="@{../css/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{../css/postdetail.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{../css/sweetalert.css}">
+    <script type="text/javascript" th:src="@{../css/sweetalert-dev.js}"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{../css/toastr.css}">
+    <script type="text/javascript" th:src="@{../js/toastr.min.js}"></script>
+</head>
+<body>
+<div style="width: 100%;height: 1500px;max-height: 5000px;display: block">
+    <header style="background: #009933;height: 3px"></header>
+    <header style="background: #fafafa;height: 67px" th:replace="components.html::main-header"></header>
+    <header style="background: #CCCCCC;height: 1px"></header>
+    <div class="main-container">
+        <div class="user-info">
+            <div class="avatar-img">
+                <img th:src="@{../images/user-64.png}" class="avatar-img">
+            </div>
+            <div class="user-name">
+                <a class="text-decoration-none" href="userInfoPage?userName=${detailPostsDTO.postUser}" th:text="${postsDO.getPostUser()}"></a>
+            </div>
+        </div>
+        <div class="title-info" th:text="${postsDO.getTitle()}"></div>
+        <div class="post-content" th:utext="${postsDO.getContent()}">
+        </div>
+        <div style="height: 20px"></div>
+    </div>
+    <div style="width: 70%;height: 200px;margin-left: 15%;background: #FFFFFF;">
+        <div style="width: 100%;height: 50px"></div>
+        <div class="date-info" th:text="'发布于 '+${postsDO.getPostDate()}"></div>
+        <div class="opts-content">
+            <!--这4项分别记录帖子点赞数值，已及当前用户的点赞标记，帖子的精品标记和置顶标记-->
+            <label id="thumbNum" hidden th:text="${postsDO.getThumbNum()}"></label>
+            <input id="thumbFlag" th:value="${postsDO.getThumbNum()}" hidden>
+            <input id="markFlag" th:value="${postsDO.getBoutiqueFlag()}" hidden>
+            <input id="topFlag" th:value="${postsDO.getTopFlag()}" hidden>
+            <!--帖子ID-->
+            <input id="postId" th:value="${postsDO.getPostsId()}" hidden>
+            <!--管理员身份显示所有按钮-->
+            <th:block th:if="${session.userAccInfoDTO!=null&&session.userAccInfoDTO.getAccType()==1}">
+                <!--按钮的文本需要动态渲染-->
+                <button type="button" class="btn btn-success" id="thumb"
+                        style="height: 38px;width: 92px;font-size: 16px;margin-left: 60px;"></button>
+                <button type="button" class="btn btn-success" id="mark"
+                        style="height: 38px;width: 92px;font-size: 16px;margin-left: 20px"></button>
+                <button type="button" class="btn btn-success" id="top"
+                        style="height: 38px;width: 92px;font-size: 16px;margin-left: 20px"></button>
+            </th:block>
+            <!--普通用户只显示点赞按钮，对于游客不显示-->
+            <button type="button" class="btn btn-success" id="thumb"
+                    style="height: 38px;width: 92px;font-size: 16px;margin-left: 150px;" th:if="${session.userAccInfoDTO!=null&&session.userAccInfoDTO.getAccType()==0}"></button>
+        </div>
+    </div>
+    <div class="comment-num" id="comment-num">
+    </div>
+    <div class="comment-container">
+        <div class="comment-card-body" id="comment-body">
+            <div class="comment-edit">
+                <div class="avatar">
+                    <img th:src="@{../images/user-64.png}" class="avatar">
+                </div>
+                <div class="comment-edit-input">
+                    <input type="text" placeholder="撰写评论..." class="form-control" style="width: 100%" id="edit-comment">
+                </div>
+                <div class="commit-btn">
+                    <button type="button" class="btn btn-success" id="commit-comment"
+                            style="height: 38px;width: 92px;font-size: 16px;margin-top: 5px">提交评论</button>
+                </div>
+            </div>
+            <div class='comment-content' th:each="postsReplyInfo:${postsReplyInfos}">
+                <div class='avatar' style='margin-top: -5px'>
+                    <img th:src='@{../images/user-64.png}' class='avatar'>
+                </div>
+                <div class='comment-text-container'>
+                    <div class='commentator-name' style='line-height: 55px'>
+                        <a class='text-decoration-none' href='userInfoPage?userName=${postsComment.replyUser}'><strong th:text="${postsReplyInfo.getReplyUser()}+'：'"></strong></a>
+                    </div>
+                    <div class='content-text'>
+                        <p th:text="${postsReplyInfo.getReplyContent()}"></p>
+                    </div>
+                </div>
+                <div class='reply-date' th:text="'评论于 '+${postsReplyInfo.getReplyDate()}">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="width: 100%;height: 100px"></div>
+</div>
+</body>
+<script type="text/javascript" th:src="@{../js/postdetail.js}"></script>
+</html>

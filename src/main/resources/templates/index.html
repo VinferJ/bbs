@@ -66,7 +66,7 @@
                         <a><img src="images/login_logo.png" class="avatar-img"/></a>
                     </div>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuLink-user" >
-                        <a class="dropdown-item" href="bbs/userInfoPage?userName=${userAccInfoDTO.userName}">账户信息</a>
+                        <a class="dropdown-item" th:href="'bbs/userInfoPage?userName='+${session.userName}">账户信息</a>
                         <a class="dropdown-item"  id="signOut">退出登录</a>
                     </div>
                     <label style="margin-left: 25px" th:text="'欢迎您，'+${session.userName}"></label>

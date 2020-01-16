@@ -242,22 +242,26 @@ $("button[name='left-side-btn']").click(function () {
     /*空数据提示信息*/
     let emptyTip;
     switch (tagVal) {
-        case "myPosts": emptyTip="您当前还没发布过任何帖子哦~";break;
-        case "myQuestionPosts": emptyTip="您当前还未发布过任何提问帖哦~";break;
-        case "myAnswerPosts": emptyTip="您当前没回答过任何帖子哦~";break;
-        case "beenThumbedPosts": emptyTip="您当前没有任何被点赞的帖子哦~";break;
+        case "myPosts": emptyTip="当前还没发布过任何帖子哦~";break;
+        case "myQuestionPosts": emptyTip="当前还未发布过任何提问帖哦~";break;
+        case "myAnswerPosts": emptyTip="当前没回答过任何帖子哦~";break;
+        case "beenThumbedPosts": emptyTip="当前没有任何被点赞的帖子哦~";break;
         default:
             emptyTip="";
     }
     /*获取DOM*/
     const infoContent=$("#posts-info-container");
+    /*获取用户名信息*/
+    const userName=$("#info-userName").text();
     $("#menu-title").text(tagText);
     /*清空数据*/
     infoContent.empty();
     $.ajax({
         method:"post",
         url:"user/"+tagVal,
-        data:{},
+        data:{
+            userName:userName
+        },
         dataType:"json",
         success:function (callback) {
             /*
@@ -297,20 +301,6 @@ $(document).on('click',".content-lists",function () {
    const postId=$(this).prev().val();
    window.location.href="postDetail?postId="+postId;
 });
-/*
-* 返回首页
-* 用绝对路径跳转
-* 因为url加了一级父级路径bbs
-* */
-$("#returnHome").click(function () {
-    let url=window.location.pathname;
-    /*截取两次*/
-    const firstEnd = url.lastIndexOf("/");
-    url = url.substring(0,firstEnd);
-    const secondEnd=url.lastIndexOf("/");
-    url=url.substring(0,secondEnd);
-    window.location.href=url;
-});
 
 /*
 * 用户登出
@@ -333,4 +323,246 @@ $("#signOut").click(function () {
             swal("服务异常","","error");
         }
     });
+});
+
+
+/*
+* 登录输入验证
+* */
+$("#signIn-btn").click(function () {
+    var loginAcc=$("#loginAcc").val();
+    var password=$("#password").val();
+    if (loginAcc===''){
+        $("#check-loginAcc-tip").text("请输入登录账号！");
+    }
+    if (password===''){
+        $("#check-password-tip").text("请输入登录密码！");
+    }
+    if (loginAcc!==''&&password!==''){
+        /*显示加载条*/
+        $("#loading-sp-1").attr("style","display:flex;position: absolute;margin-left: 190px;z-index: 999");
+        $.ajax({
+            method:"post",
+            url:"signIn",
+            data:{
+                loginAcc:loginAcc,
+                password:password
+            },
+            dataType:"json",
+            success:function (callback) {
+                if (callback.successFlag){
+                    /**
+                     * 用户登录成功后
+                     * 将页面session的登录状态设置为true
+                     */
+                    $.session.set("loginState",true);
+                    /*
+                    * 登录成功后不做任何页面跳转，但是需要显示相应的用户信息
+                    * 顶部栏会显示用户已登录的一些信息，并且关闭对话框
+                    * 所以直接刷新页面就行了
+                    * */
+                    window.location.reload();
+                }else{
+                    swal("验证失败","账号或登录密码错误！","error");
+                }
+                /*
+                * 关闭加载动画要放在ajax请求里面
+                * 否则将不会再请求执行完成后才关闭
+                * 而是立刻关闭，因为这是异步请求
+                * */
+                $("#loading-sp-1").attr("style","display:none");
+            },
+            error:function () {
+                /*关闭加载动画*/
+                $("#loading-sp-1").attr("style","display:none");
+                swal("服务异常","遇到了未知错误呢....o(╥﹏╥)....哇~难受","error");
+            }
+        });
+
+    }
+});
+
+/*
+* 校验提示显示隐藏
+* */
+$("#loginAcc").change(function () {
+    $("#check-loginAcc-tip").text("");
+});
+$("#password").change(function () {
+    $("#check-password-tip").text("");
+});
+
+/*
+* 注册对话框div显示
+* */
+$("#registerAcc-btn").click(function () {
+    $("#signIn-content").attr("style","display:none");
+    $("#register-content").attr("style","display:flex");
+    $("#modalLabel").text("用户注册");
+});
+
+/*
+* 登录对话框div显示，从注册回到登录
+* */
+$("#returnToSignIn-btn").click(function () {
+    $("#register-content").attr("style","display:none");
+    $("#signIn-content").attr("style","display:flex");
+    $("#modalLabel").text("用户登录");
+});
+/*
+*从重置密码回到登录
+* */
+$("#returnToSignIn-btn-reset").click(function () {
+    $("#resetPwd-content").attr("style","display:none");
+    $("#signIn-content").attr("style","display:flex");
+    $("#modalLabel").text("用户登录");
+});
+
+/*
+* 重置密码对话框div显示
+* */
+$("#resetPwd").click(function () {
+    $("#signIn-content").attr("style","display:none");
+    $("#resetPwd-content").attr("style","display:flex");
+    $("#modalLabel").text("重置密码");
+});
+
+/*
+* 重置密码校验
+* */
+$("#confirm-reset").click(function () {
+    var userName=$("#userName-reset").val();
+    var email=$("#email-reset").val();
+    var newPassword=$("#password-reset").val();
+    /*邮箱验证的正则表达式*/
+    const emailReg = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/;
+    if(userName===''){
+        swal("提示","用户名不能为空哦","info");
+    }else if (email===''){
+        swal("提示","注册邮箱不能为空哦","info");
+    }else if (!emailReg.test(email)){
+        swal("提示","要输入合法的邮箱地址哦","warning");
+    }else if (newPassword===''){
+        swal("提示","重置密码就得输入新密码哦","info");
+    }else if (newPassword.length<6){
+        swal("提示","哇~说了密码长度不能小于6位嘛","warning");
+    }else {
+        $.ajax({
+            method:"post",
+            url:"resetPassword",
+            data:{
+                userName:userName,
+                email:email,
+                newPassword:newPassword
+            },
+            dataType:"json",
+            success:function (callback) {
+                if (callback.successFlag){
+                    swal("重置成功","您已成功修改了密码","success");
+                }else{
+                    swal("重置失败","..(ಥ_ಥ)..好像出bug了，要不再试一试？","error");
+                }
+            },
+            error:function () {
+                swal("服务异常","遇到了未知错误呢....o(╥﹏╥)....哇~难受","error");
+            }
+        });
+    }
+
+});
+
+
+/*
+* 因为modal里面有三个信息的div，所以这里让
+* 每次对话框关闭后都回到显示登录信息
+* 隐藏其余两个信息的状态
+* */
+$("#myModal").on('hidden.bs.modal',function () {
+    $("#register-content").attr("style","display:none");
+    $("#resetPwd-content").attr("style","display:none");
+    $("#signIn-content").attr("style","display:flex");
+    $("#modalLabel").text("用户登录");
+});
+
+/*
+* 点击注册
+* */
+$("#register").click(function () {
+    /*
+    * 让登陆信息的div隐藏
+    * 让注册信息的div显示
+    * */
+    $("#signIn-content").attr("style","display:none");
+    $("#register-content").attr("style","display:flex");
+    $("#modalLabel").text("用户注册");
+    /*显示对话框*/
+    $("#myModal").modal('show');
+});
+
+/*
+* 注册校验
+* */
+$("#register-btn").click(function () {
+    var userName=$("#userName").val();
+    var contact=$("#contact").val();
+    var jobCategory=$("#jobCategory").val();
+    var email=$("#email").val();
+    var password=$("#register-password").val();
+    /*邮箱验证的正则表达式*/
+    const emailReg = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/;
+    /*手机号码正则表达式*/
+    const phoneNumReg = /^[1][3,4,5,6,7,8,9][0-9]{9}$/;
+    if (userName===''){
+        swal("提示","用户名不能为空哦~","info");
+    }else if(contact===''){
+        swal("提示","联系不能为空哦~","info");
+    } else if (!phoneNumReg.test(contact)){
+        swal("提示","手机号码不可以乱来填哦~","warning");
+    }else if (email===''){
+        swal("提示","注册邮箱不能为空哦~","info");
+    }else if (!emailReg.test(email)){
+        swal("提示","注册邮箱不可以乱填哦~","warning");
+    }else if (password===''){
+        swal("提示","登录不能为空哦~","info");
+    }else if (password.length<6){
+        swal("提示","说了登录密码长度不能小于6位嘛~","warning");
+    }else{
+        /*
+        * 验证通过，那么运行提交请求到后台进行注册
+        * */
+        /*显示加载条*/
+        $("#loading-sp-2").attr("style","display:flex;position: absolute;margin-left: 190px;z-index: 999");
+        $.ajax({
+            method: "post",
+            url:"signUp",
+            data:{
+                userName:userName,
+                phoneNum:contact,
+                jobCategory:jobCategory,
+                email:email,
+                password:password
+            },
+            dataType: "json",
+            success:function (callback) {
+                if (callback.callbackData==="existing-userName"){
+                    swal("注册失败","用户名 "+userName+" 已存在了哦，换个用户名注册嘛","error");
+                }else if (callback.callbackData==="existing-email"){
+                    swal("注册失败","邮箱 "+email+" 已被注册了哦，换个邮箱进行注册嘛","error");
+                }else if (callback.callbackData==="success"){
+                    /*隐藏对话框*/
+                    $("#myModal").modal('hide');
+                    swal("注册成功","您已成功注册为论坛用户~( ＾∀＾）／欢迎＼( ＾∀＾）","success");
+                }else {
+                    swal("注册失败","好像是服务君在开小差了呢....o(╥﹏╥)....","error");
+                }
+                /*关闭加载动画*/
+                $("#loading-sp-2").attr("style","display:none");
+            },
+            error:function () {
+                /*关闭加载动画*/
+                $("#loading-sp-2").attr("style","display:none");
+                swal("服务异常","遇到了未知错误呢....o(╥﹏╥)....哇~难受","error");
+            }
+        });
+    }
 });

@@ -89,16 +89,21 @@ $("#signOut").click(function () {
         data:{},
         dataType:"json",
         success:function () {
+
             /*
-            * 由该界面退出登录后将直接返回首页
+            * 由于该页面是鉴权页面，且响应回传后会默认刷新
+            * 导致重定向到403页面，所以下面的跳转代码失效
             * */
+            /*/!*
+            * 由该界面退出登录后将直接返回首页
+            * *!/
             let url=window.location.pathname;
-            /*截取两次*/
+            /!*截取两次*!/
             const firstEnd = url.lastIndexOf("/");
             url = url.substring(0,firstEnd);
             const secondEnd=url.lastIndexOf("/");
             url=url.substring(0,secondEnd);
-            window.location.href=url;
+            window.location.href=url;*/
         },
         error:function () {
             swal("服务异常","","error");

@@ -31,6 +31,22 @@ public interface PostsDAO {
     List<Integer> queryThumbNumByPostUser(String userName);
 
     /**
+     * 查询用户发布的被点赞过的帖子
+     * @param userName      用户名
+     * @return  返回被点赞的帖子内容
+     */
+    @Select("select * from posts where thumb_num>0")
+    List<PostsDO> queryUserThumbPosts(String userName);
+
+    /**
+     * 查询用户回答过的问答帖
+     * @param userName  用户名
+     * @return  返回用户回答过的帖子的信息
+     */
+    @Select("select * from posts where posts_id in(select posts_id from reply_info where reply_user=#{userName})")
+    List<PostsDO> queryUserAnswerPosts(String userName);
+
+    /**
      * 根据帖子Id查询帖子信息
      * @param postsId 帖子Id
      * @return  返回帖子信息
@@ -51,7 +67,7 @@ public interface PostsDAO {
      * @param userName  用户名
      * @return  返回帖子集合
      */
-    @Select("select * from posts where boutique_flag=1 and post_user=#{userName}")
+    @Select("select * from posts where type=1 and post_user=#{userName}")
     List<PostsDO> queryUserQuestionPosts(String userName);
 
     /**
@@ -68,6 +84,13 @@ public interface PostsDAO {
      */
     @Select("select * from posts where top_flag=1")
     List<PostsDO> queryAllTopPosts();
+
+    /**
+     * 查询所有问答帖
+     * @return  返回所有问答帖内容
+     */
+    @Select("select * from posts where type=1")
+    List<PostsDO> queryAllQuestionPosts();
 
     /**
      * 获取所有的精品帖数据

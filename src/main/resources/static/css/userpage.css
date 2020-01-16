@@ -44,6 +44,25 @@
     margin-left: 4%;
 }
 
+.signIn-content{
+    display: flex;
+    width: 490px;
+    margin-left: 4px;
+    height: 100%;
+}
+.register-content{
+    display: none;
+    width: 490px;
+    margin-left: 4px;
+    height: 100%;
+}
+.resetPwd-content{
+    display: none;
+    width: 490px;
+    margin-left: 4px;
+    height: 100%;
+}
+
 .link-home{
     width: 56px;
     height: 34px;

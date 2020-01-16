@@ -33,7 +33,7 @@ $(function () {
     /*
    * jsp渲染数据出错，用ajax获取
    * */
-    const postsId=$("#postId").val();
+    /*const postsId=$("#postId").val();
     const commentBody=$("#comment-body");
     $.ajax({
         method:"post",
@@ -75,7 +75,7 @@ $(function () {
         error:function () {
             toastr.error("服务异常，评论数据获取失败");
         }
-    });
+    });*/
 
     /*0是未点赞过，1是已点赞过，其他两项同理*/
     const thumbFlag=$("#thumbFlag").val();
@@ -84,7 +84,7 @@ $(function () {
     /*
     * 设置计数器的值同时渲染按钮的文本
     * */
-    if (thumbFlag==='0'){
+    if (thumbFlag===0){
         thumbCounter=1;
         $("#thumb").text("赞 · "+$("#thumbNum").text());
     }else{

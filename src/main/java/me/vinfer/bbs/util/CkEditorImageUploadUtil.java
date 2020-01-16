@@ -8,10 +8,10 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 /**
- * @author by Vinfer
- * @date 2020-01-12  05:01
+ * @author by 江文发
+ * @date 2020-01-13    07:44
  **/
-public class CKEditorImageUploadUtil {
+public class CkEditorImageUploadUtil {
 
     public static String getFileNameFromUrl(String url){
         int beginIndex = url.lastIndexOf("/");

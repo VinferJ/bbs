@@ -1,10 +1,50 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>帖子管理</title>
+    <script th:src="@{../js/jquery.min.js}"></script>
+    <script th:src="@{../js/jquerysession.js}"></script>
+    <script type="text/javascript" th:src="@{../umd/popper.min.js}"></script>
+    <script th:src="@{../js/bootstrap.min.js}"></script>
+    <script th:src="@{../js/bootstrap.bundle.min.js}"></script>
+    <link rel="stylesheet" th:href="@{../css/bootstrap.min.css}">
+    <link type="text/css" rel="stylesheet" th:href="@{../css/postsmanage.css}" >
+    <link rel="stylesheet" type="text/css" th:href="@{../css/sweetalert.css}">
+    <script type="text/javascript" th:src="@{../js/sweetalert-dev.js}"></script>
 </head>
 <body>
 
+<div style="display: block;width: 100%;min-height: 1800px;max-height: 5000px;height: 1800px">
+    <header style="background: #009933;height: 3px"></header>
+    <header th:replace="components.html::main-header"></header>
+    <header style="background: #CCCCCC;height: 1px"></header>
+    <div class="main-container">
+        <div class="list-group" th:if="${allPostsInfos!=null}" th:each="postInfo:${allPostsInfos}">
+                <div style="background: #999999;width: 100%;height: 1.5px"></div>
+                <div class="content-group">
+                    <div class="tag-content">
+                        <div class="tag" th:text="${postInfo.tag}"></div>
+                        <div class="tag" th:text="'点赞 ·'+${postInfo.thumbNum}"></div>
+                    </div>
+                    <div class="post-content">
+                        <div class="post-title" th:text="${postInfo.title}">
+                            <span class="title-span" th:text="${postInfo.postUser}+' 发布于 '+${postInfo.postDate}"></span>
+                        </div>
+                        <div class="post-info" th:text="${postInfo.content}"></div>
+                    </div>
+                    <div class="opts-content">
+                        <!--用来绑定帖子id-->
+                        <input th:value="${postInfo.postsId}" hidden>
+                        <button type="button" class="btn btn-primary" name="seeDetail" style="display: inline-block;width: 70%;margin-left: 15%;margin-top: 15px">查看详细</button>
+                        <button type="button" class="btn btn-danger" name="deletePost" style="display: inline-block;width: 70%;margin-left: 15%;margin-top: 15px">删除该帖</button>
+                    </div>
+                </div>
+            </div>
+        <div style="width: 90%;margin-left: 5%;margin-top: 50px;text-align: center" th:if="${allPostsInfos==null}">论坛暂未有用户发布过帖子</div>
+    </div>
+</div>
+<footer th:replace="components.html::copyright-footer"></footer>
 </body>
+<script type="text/javascript" th:src="@{../js/postsmanage.js}"></script>
 </html>

@@ -12,7 +12,7 @@ public interface AdminService {
      * @param postId    删除的帖子id
      * @return  返回删除检查结果
      */
-    Boolean deletePostById(int postId);
+    Boolean deletePostById(Integer postId);
 
 
     /**
