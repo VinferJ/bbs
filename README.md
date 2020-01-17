@@ -1,0 +1,22 @@
+###网站论坛系统
+
+####前端：
+前端页面模仿了思否的前端页面风格
+（https://segmentfault.com/）
+
+使用技术栈如下：
+- bootstrap
+- jquery
+- CKEditor4-full-version
+- thymeleaf 3.x
+
+####后端：
+使用技术栈如下：
+- springboot 2.2
+- mybatis
+- 数据库：mysql
+- 文件上传服务：fastdfs
+
+（如果需要使用文件上传功能，需要自行配置fastdfs服务，最终修改resource文件夹下的client.conf
+中的对应内容即可）
+

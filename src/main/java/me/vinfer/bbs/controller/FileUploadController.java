@@ -23,7 +23,7 @@ public class FileUploadController {
      * 远程服务器地址
      * 即fastDfs部署的服务器地址加映射端口
      */
-    private final static String REMOTE_SERVER_ADDRESS="http://121.36.19.240:8888/";
+    private final static String REMOTE_SERVER_ADDRESS="your-fastDfs-server-address";
 
     @PostMapping(value = "/bbs/imgUpload",headers="content-type=multipart/form-data")
     public void fileUpload(@RequestParam("upload")MultipartFile file, HttpServletResponse response){
