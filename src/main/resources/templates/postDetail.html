@@ -11,14 +11,14 @@
     <link rel="stylesheet" th:href="@{../css/bootstrap.min.css}">
     <link rel="stylesheet" type="text/css" th:href="@{../css/postdetail.css}">
     <link rel="stylesheet" type="text/css" th:href="@{../css/sweetalert.css}">
-    <script type="text/javascript" th:src="@{../css/sweetalert-dev.js}"></script>
+    <script type="text/javascript" th:src="@{../js/sweetalert-dev.js}"></script>
     <link rel="stylesheet" type="text/css" th:href="@{../css/toastr.css}">
     <script type="text/javascript" th:src="@{../js/toastr.min.js}"></script>
 </head>
 <body>
 <div style="width: 100%;height: 1500px;max-height: 5000px;display: block">
     <header style="background: #009933;height: 3px"></header>
-    <header style="background: #fafafa;height: 67px" th:replace="components.html::main-header"></header>
+    <header th:replace="components.html::main-header"></header>
     <header style="background: #CCCCCC;height: 1px"></header>
     <div class="main-container">
         <div class="user-info">
@@ -26,25 +26,25 @@
                 <img th:src="@{../images/user-64.png}" class="avatar-img">
             </div>
             <div class="user-name">
-                <a class="text-decoration-none" href="userInfoPage?userName=${detailPostsDTO.postUser}" th:text="${postsDO.getPostUser()}"></a>
+                <a class="text-decoration-none" th:href="'userInfoPage?userName='+${postsDO.postUser}" th:text="${postsDO.postUser}"></a>
             </div>
         </div>
-        <div class="title-info" th:text="${postsDO.getTitle()}"></div>
-        <div class="post-content" th:utext="${postsDO.getContent()}">
+        <div class="title-info" th:text="${postsDO.title}"></div>
+        <div class="post-content" th:utext="${postsDO.content}">
         </div>
         <div style="height: 20px"></div>
     </div>
     <div style="width: 70%;height: 200px;margin-left: 15%;background: #FFFFFF;">
         <div style="width: 100%;height: 50px"></div>
-        <div class="date-info" th:text="'发布于 '+${postsDO.getPostDate()}"></div>
+        <div class="date-info" th:text="'发布于 '+${postsDO.postDate}"></div>
         <div class="opts-content">
             <!--这4项分别记录帖子点赞数值，已及当前用户的点赞标记，帖子的精品标记和置顶标记-->
-            <label id="thumbNum" hidden th:text="${postsDO.getThumbNum()}"></label>
-            <input id="thumbFlag" th:value="${postsDO.getThumbNum()}" hidden>
-            <input id="markFlag" th:value="${postsDO.getBoutiqueFlag()}" hidden>
-            <input id="topFlag" th:value="${postsDO.getTopFlag()}" hidden>
+            <label id="thumbNum" hidden th:text="${postsDO.thumbNum}"></label>
+            <input id="thumbFlag" th:value="${postsDO.thumbNum}" hidden>
+            <input id="markFlag" th:value="${postsDO.boutiqueFlag}" hidden>
+            <input id="topFlag" th:value="${postsDO.topFlag}" hidden>
             <!--帖子ID-->
-            <input id="postId" th:value="${postsDO.getPostsId()}" hidden>
+            <input id="postId" th:value="${postsDO.postsId}" hidden>
             <!--管理员身份显示所有按钮-->
             <th:block th:if="${session.userAccInfoDTO!=null&&session.userAccInfoDTO.getAccType()==1}">
                 <!--按钮的文本需要动态渲染-->
@@ -82,7 +82,7 @@
                 </div>
                 <div class='comment-text-container'>
                     <div class='commentator-name' style='line-height: 55px'>
-                        <a class='text-decoration-none' href='userInfoPage?userName=${postsComment.replyUser}'><strong th:text="${postsReplyInfo.getReplyUser()}+'：'"></strong></a>
+                        <a class='text-decoration-none' th:href="'userInfoPage?userName='+${postsReplyInfo.replyUser}"><strong th:text="${postsReplyInfo.replyUser}+'：'"></strong></a>
                     </div>
                     <div class='content-text'>
                         <p th:text="${postsReplyInfo.getReplyContent()}"></p>

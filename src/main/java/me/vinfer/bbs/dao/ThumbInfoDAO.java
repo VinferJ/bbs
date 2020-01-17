@@ -22,7 +22,7 @@ public interface ThumbInfoDAO {
      * @return  返回插入结果
      */
     @Insert("insert into thumb_info values(#{postsId},#{userName})")
-    Integer addThumbInfo(@Param("userName") String userName, @Param("postsIdd") int postId);
+    Integer addThumbInfo(@Param("userName") String userName, @Param("postsId") int postId);
 
     /**
      * 通过用户名和帖子id删除一个点赞信息
@@ -31,7 +31,7 @@ public interface ThumbInfoDAO {
      * @return  返回对数据库表影响的行数
      */
     @Delete("delete from thumb_info where posts_id=#{postsId} and thumb_user=#{userName}")
-    Integer deleteThumbInfoByUserNameAndPostId(@Param("userName")String userName,@Param("postsIdd")Integer postsId);
+    Integer deleteThumbInfoByUserNameAndPostId(@Param("userName")String userName,@Param("postsId")Integer postsId);
 
     /**
      * 通过用户名和帖子Id获取点赞信息

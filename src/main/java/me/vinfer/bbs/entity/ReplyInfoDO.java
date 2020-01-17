@@ -24,7 +24,7 @@ public class ReplyInfoDO {
     /**
      * 回复的帖子ID
      */
-    private Integer postId;
+    private Integer postsId;
 
     /**
      * 回复内容

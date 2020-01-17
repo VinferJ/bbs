@@ -74,7 +74,6 @@ body{
     background: #999999;
     cursor: pointer;
     padding-top: -8px;
-
 }
 .link-home{
     width: 56px;
@@ -160,7 +159,7 @@ body{
 
 /*定义滚动条轨道 内阴影+圆角*/
 ::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 0px rgba(240, 240, 240, .5);
+    box-shadow: inset 0 0 0px  #999999;
     border-radius: 20px;
     background-color: white;
 }
@@ -168,8 +167,8 @@ body{
 /*定义滑块 内阴影+圆角*/
 ::-webkit-scrollbar-thumb {
     border-radius: 20px;
-    box-shadow: inset 0 0 0px rgba(240, 240, 240, .5);
-    background-color: #EEEEEE;
+    box-shadow: inset 0 0 0px  #999999;
+    background-color: #999999;
 }
 .note-card{
     width: 100%;

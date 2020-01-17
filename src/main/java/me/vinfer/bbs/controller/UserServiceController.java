@@ -8,7 +8,6 @@ import me.vinfer.bbs.service.PostsService;
 import me.vinfer.bbs.service.ThumbService;
 import me.vinfer.bbs.service.UserService;
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.ognl.Ognl;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
@@ -88,14 +87,20 @@ public class UserServiceController {
         return ajaxCallback;
     }
 
-    @PostMapping(value = "/bbs/resetUserName")
-    public Object resetUserName(@Param("userName")String userName,@Param("newUserName")String newUserName){
+    @PostMapping(value = "/bbs/user/resetUserName")
+    public Object resetUserName(@Param("newUserName")String newUserName,HttpSession session){
         AjaxCallback ajaxCallback=new AjaxCallback();
-        ajaxCallback.setSuccessFlag(userService.resetUserName(userName,newUserName));
+        String userName= (String) session.getAttribute("userName");
+        if(userService.resetUserName(userName,newUserName)){
+            ajaxCallback.setSuccessFlag(true);
+            session.setAttribute("userName", newUserName);
+        }else {
+            ajaxCallback.setSuccessFlag(false);
+        }
         return ajaxCallback;
     }
 
-    @PostMapping(value = "/bbs/restPassword")
+    @PostMapping(value = "/bbs/resetPassword")
     public Object resetPassword(@Param("userName")String userName,@Param("email")String email,@Param("newPassword")String newPassword){
         AjaxCallback ajaxCallback=new AjaxCallback();
         Integer resetRes=userService.resetPassword(userName,email,newPassword);
@@ -117,16 +122,18 @@ public class UserServiceController {
         return ajaxCallback;
     }
 
-    @PostMapping(value = "/bbs/resetJobCategory")
-    public Object resetJobCategory(@Param("userName")String userName,@Param("newJobCategory")String newJobCategory){
+    @PostMapping(value = "/bbs/user/resetJobCategory")
+    public Object resetJobCategory(@Param("newJobCategory")String newJobCategory,HttpSession session){
         AjaxCallback ajaxCallback=new AjaxCallback();
+        String userName= (String) session.getAttribute("userName");
         ajaxCallback.setSuccessFlag(userService.resetJobCategory(newJobCategory,userName));
         return ajaxCallback;
     }
 
-    @PostMapping(value = "/bbs/resetPhoneNum")
-    public Object resetPhoneNum(@Param("userName")String userName,@Param("newPhoneNum")String newPhoneNum){
+    @PostMapping(value = "/bbs/user/resetPhoneNum")
+    public Object resetPhoneNum(@Param("newPhoneNum")String newPhoneNum,HttpSession session){
         AjaxCallback ajaxCallback=new AjaxCallback();
+        String userName= (String) session.getAttribute("userName");
         ajaxCallback.setSuccessFlag(userService.resetPhoneNum(newPhoneNum,userName));
         return ajaxCallback;
     }
@@ -148,10 +155,11 @@ public class UserServiceController {
     }
 
     @PostMapping(value = "/bbs/user/commitComment")
-    public Object commitComment(ReplyInfoDO replyInfoDO){
+    public Object commitComment(@Param("postsId")String postsId,@Param("commentData")String commentData,
+                                HttpSession session){
         AjaxCallback ajaxCallback=new AjaxCallback();
-        ajaxCallback.setSuccessFlag(postsService.commitComment(
-                replyInfoDO.getPostId(),replyInfoDO.getReplyContent() , replyInfoDO.getReplyUser()));
+        String userName= (String) session.getAttribute("userName");
+        ajaxCallback.setSuccessFlag(postsService.commitComment(Integer.valueOf(postsId),commentData,userName));
         return ajaxCallback;
     }
 

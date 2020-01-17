@@ -117,6 +117,11 @@ $("#save-edit-userName").click(function () {
             success:function (callback) {
                 if (callback.successFlag){
                     swal("已保存修改","您需要重新登录才可以重置状态","success");
+                    const host=window.location.host;
+                    const pathName=window.location.pathname;
+                    const url=host+pathName+'?userName='+newUserName;
+                    window.location.href=url;
+                    //window.event.returnValue=false;
                     /*
                     * 显示信息，直接将修改信息绑定到label，不刷新页面
                     * 先隐藏编辑框再显示
@@ -460,7 +465,7 @@ $("#confirm-reset").click(function () {
                 if (callback.successFlag){
                     swal("重置成功","您已成功修改了密码","success");
                 }else{
-                    swal("重置失败","..(ಥ_ಥ)..好像出bug了，要不再试一试？","error");
+                    swal("修改失败",callback.callbackData,"error");
                 }
             },
             error:function () {

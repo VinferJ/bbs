@@ -11,3 +11,6 @@ spring:
 
 mybatis:
   config-location: classpath:mybatis/mybatis.cfg.xml
+logging:
+  level:
+    me.vinfer.bbs.dao: debug

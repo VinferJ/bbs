@@ -35,6 +35,7 @@
                 <div class="point-info" th:text="'账户积分：'+${userInfoPageDTO.points}"
                 th:if="${session.userName!=null&&session.userName==userInfoPageDTO.userName}"></div>
             </div>
+            <!--目前暂不支持修改用户名-->
             <div class="content-container" style="margin-left: 20px">
                 <div class="username-content">
                     <label id="info-userName" th:text="${userInfoPageDTO.userName}"></label>&nbsp;&nbsp;&nbsp;
@@ -46,9 +47,9 @@
                                 id="cancel-edit-userName">取消</button>
                     </div>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <!--用户自己才有权利编辑自己的信息-->
-                    <a  href="#" class="text-decoration-none"  style="font-size: 12px;" id="edit-userName"
-                    th:if="${session.userName!=null&&session.userName==userInfoPageDTO.userName}">编辑</a>
+                    <!--用户自己才有权利编辑自己的信息--><!--
+                    <label  style="font-size: 12px;cursor: pointer;color: #007bff;" id="edit-userName"
+                    th:if="${session.userName!=null&&session.userName==userInfoPageDTO.userName}">编辑</label>-->
                 </div>
                 <th:block th:if="${session.userName!=null&&session.userName==userInfoPageDTO.userName}">
                     <div class="opts-content" th:if="${userInfoPageDTO.accType==1}">
@@ -157,7 +158,7 @@
             <div  id="posts-info-container">
                 <div class='lists-group' th:if="${myPosts!=null}" th:each="myPost:${myPosts}">
                     <div class='top-line' style='width: 100%;height: 1.5px;background: #999999;'></div>
-                    <input value='${myPost.postsId}' hidden>
+                    <input th:value='${myPost.postsId}' hidden>
                     <div class='content-lists'>
                         <div style='background: #FCF8E3' class='thumb-num' th:text="'获赞 '+${myPost.thumbNum}"></div>
                         <div class='posts-info' th:text="${myPost.title}"></div>

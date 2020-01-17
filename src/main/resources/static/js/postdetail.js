@@ -11,7 +11,6 @@
 let thumbCounter;
 let markCounter;
 let topCounter;
-let commentData=[];
 
 $(function () {
 
@@ -78,9 +77,9 @@ $(function () {
     });*/
 
     /*0是未点赞过，1是已点赞过，其他两项同理*/
-    const thumbFlag=$("#thumbFlag").val();
-    const markFlag=$("#markFlag").val();
-    const topFlag=$("#topFlag").val();
+    const thumbFlag=parseInt($("#thumbFlag").val());
+    const markFlag=parseInt($("#markFlag").val());
+    const topFlag=parseInt($("#topFlag").val());
     /*
     * 设置计数器的值同时渲染按钮的文本
     * */
@@ -266,7 +265,7 @@ $("#confirm-reset").click(function () {
                 if (callback.successFlag){
                     swal("重置成功","您已成功修改了密码","success");
                 }else{
-                    swal("重置失败","..(ಥ_ಥ)..好像出bug了，要不再试一试？","error");
+                    swal("修改失败",callback.callbackData,"error");
                 }
             },
             error:function () {
