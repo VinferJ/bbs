@@ -1,14 +1,11 @@
 package me.vinfer.bbs.controller;
 
-import com.sun.deploy.net.HttpResponse;
 import me.vinfer.bbs.util.CkEditorImageUploadUtil;
 import me.vinfer.bbs.util.FastDfsClientUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletResponse;
 
 /**
@@ -23,7 +20,7 @@ public class FileUploadController {
      * 远程服务器地址
      * 即fastDfs部署的服务器地址加映射端口
      */
-    private final static String REMOTE_SERVER_ADDRESS="your-fastDfs-server-address";
+    private final static String REMOTE_SERVER_ADDRESS="your fastDfs server address:port";
 
     @PostMapping(value = "/bbs/imgUpload",headers="content-type=multipart/form-data")
     public void fileUpload(@RequestParam("upload")MultipartFile file, HttpServletResponse response){
@@ -36,7 +33,7 @@ public class FileUploadController {
         FastDfsClientUtil fastDfsClient;
         String url;
         try {
-            fastDfsClient = new FastDfsClientUtil("classpath:client.conf");
+            fastDfsClient = new FastDfsClientUtil();
             /*要拼接服务器地址，才是文件完整的url*/
             url = REMOTE_SERVER_ADDRESS+fastDfsClient.uploadFile(file.getBytes(), extName);
             CkEditorImageUploadUtil.ckEditorImgUpload(url,response);
